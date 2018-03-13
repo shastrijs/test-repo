@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-public interface EnablerContext extends Context{
+public interface EnablerContext extends ObjectContext{
 	
 
 
