@@ -17,6 +17,7 @@ public class SimpleArithmeticContext implements DomainContext{
 		// TODO Auto-generated method stub
 		instincts.add(30);
 		instincts.add("Test");
+		instincts.add(2.345);
 	}
 
 	@Override
