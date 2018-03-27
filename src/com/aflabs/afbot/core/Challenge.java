@@ -62,7 +62,7 @@ public class Challenge<I,O> {
 		List<String> relationMap1 = new ArrayList<String>();
 		
 		input1.add(100);
-		input1.add(2000);
+		input1.add(2000.00);
 		input1.add("Add");
 		
 		relationMap1.add("1st Addend Scale = 3");
