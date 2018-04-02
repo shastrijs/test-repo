@@ -8,41 +8,53 @@ public class AflabsNumber {
 	public Number number;	
 	public String stringRep;	
 	public double numberValue;
+	public int floorInt;
+	public double decimalValue;
+	public boolean isFraction;
+	public boolean isInteger;
+	public boolean isZero;
+	public boolean isNegative;
+	public boolean isReal;
+	public boolean isRational;
+	public boolean isEven;
 	
 	public boolean implicationsDrawn = false;
-	public boolean specialImplicationsDrawn = false;
-	
-	public boolean isInteger = false;
-	public boolean isNaturalNumber = false;
-	public boolean isZero = false;
-	public boolean isNegativeNumber = false;
-	public boolean isDecimal = false;
-	public boolean isFraction = false;	
-	public boolean isRational = false;
-	public boolean isReal = false;
+	public boolean specialImplicationsDrawn = false;	
 		
 	//implications
 	public int noOfDigits;
 	public Integer[] digits;
 	public int noOfDecimalDigits;
-	public Integer[] decimalDigits;
-	
-	//divisibility rules
-	public boolean isEven = false;
+	public Integer[] decimalDigits;	
 	
 	//special implications
-	public boolean isPerfectSquare = false;
-	public boolean isPerfectCube = false;
-	public boolean isPrime = false;
-	public boolean isPerfectNumber = false;
+	public boolean isPerfectSquare;
+	public boolean isPerfectCube;
+	public boolean isPrime;
+	public boolean isPerfectNumber;
+	//special implications - divisibility rules
+	public boolean isDivisibleBy3;
+	public boolean isDivisibleBy5;
+	public boolean isDivisibleBy7;
+	public boolean isDivisibleBy10;
 	
+		
 	public AflabsNumber(Number number){
 		this.number = number;
 		this.stringRep = number.toString();
-		this.numberValue = number.doubleValue();
-		if(number instanceof Fraction){
-			this.isFraction = true;			
-		}	
+		this.numberValue = number.doubleValue();		
+		
+		this.isFraction = (number instanceof Fraction)? true:false;
+		this.isInteger = (this.numberValue % 1 == 0)? true:false;
+		this.isZero = (this.numberValue == 0)? true:false;
+		this.isNegative = (this.numberValue < 0)? true:false;
+		this.isReal = true;
+		
+		if (!isInteger){
+			this.floorInt = Double.valueOf(this.numberValue).intValue();
+			this.decimalValue = this.numberValue - this.floorInt;
+		}
+		
 		System.out.println("Original Number : " + this.number + " : " + this.stringRep + " : " + this.numberValue);
 	}
 	
@@ -57,7 +69,7 @@ public class AflabsNumber {
 									Integer.parseInt(stringRep);
 			else
 				this.number = tempDouble;			
-		} else if (stringRep.indexOf("/") == 1) {
+		} else {
 			StringTokenizer st = new StringTokenizer(stringRep, "/");
 			this.number = new Fraction(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
 			this.isFraction = true;
@@ -73,9 +85,13 @@ public class AflabsNumber {
 		num = new AflabsNumber(new Fraction(1234.4567));
 		num = new AflabsNumber(new Fraction(1234));		
 		num = new AflabsNumber(-1234.4567);		
-		num = new AflabsNumber(0.4567);		
-		num = new AflabsNumber(new Fraction(1,-3));	
-		num = new AflabsNumber("1/2/3");		
+//		num = new AflabsNumber(0.4567);		
+//		num = new AflabsNumber(new Fraction(1,-3));	
+//		num = new AflabsNumber("16/8");		
+//		num = new AflabsNumber(new Fraction(Math.sqrt(2)));
+		
+		System.out.println("Int val : " + num.getFloorInt());
+		System.out.println("Int val : " + num.getDecimalValue());
 		
 //		AflabsNumber num1 = new AflabsNumber(3/2);
 //		System.out.println("num.number.doubleValue() : " + num1.origNumber.doubleValue());
@@ -127,7 +143,7 @@ public class AflabsNumber {
 		
 		int integerPlaces = stringVal.indexOf('.');
 		int decimalPlaces = stringVal.length() - integerPlaces - 1;		
-	}
+	}	
 	
 	public void drawSpecialImplications() {
 		specialImplicationsDrawn = true;			
@@ -157,20 +173,28 @@ public class AflabsNumber {
 		this.numberValue = numberValue;
 	}
 
-	public boolean isImplicationsDrawn() {
-		return implicationsDrawn;
+	public int getFloorInt() {
+		return floorInt;
 	}
 
-	public void setImplicationsDrawn(boolean implicationsDrawn) {
-		this.implicationsDrawn = implicationsDrawn;
+	public void setFloorInt(int floorInt) {
+		this.floorInt = floorInt;
 	}
 
-	public boolean isSpecialImplicationsDrawn() {
-		return specialImplicationsDrawn;
+	public double getDecimalValue() {
+		return decimalValue;
 	}
 
-	public void setSpecialImplicationsDrawn(boolean specialImplicationsDrawn) {
-		this.specialImplicationsDrawn = specialImplicationsDrawn;
+	public void setDecimalValue(double decimalValue) {
+		this.decimalValue = decimalValue;
+	}
+
+	public boolean isFraction() {
+		return isFraction;
+	}
+
+	public void setFraction(boolean isFraction) {
+		this.isFraction = isFraction;
 	}
 
 	public boolean isInteger() {
@@ -181,14 +205,6 @@ public class AflabsNumber {
 		this.isInteger = isInteger;
 	}
 
-	public boolean isNaturalNumber() {
-		return isNaturalNumber;
-	}
-
-	public void setNaturalNumber(boolean isNaturalNumber) {
-		this.isNaturalNumber = isNaturalNumber;
-	}
-
 	public boolean isZero() {
 		return isZero;
 	}
@@ -197,28 +213,12 @@ public class AflabsNumber {
 		this.isZero = isZero;
 	}
 
-	public boolean isNegativeNumber() {
-		return isNegativeNumber;
+	public boolean isNegative() {
+		return isNegative;
 	}
 
-	public void setNegativeNumber(boolean isNegativeNumber) {
-		this.isNegativeNumber = isNegativeNumber;
-	}
-
-	public boolean isDecimal() {
-		return isDecimal;
-	}
-
-	public void setDecimal(boolean isDecimal) {
-		this.isDecimal = isDecimal;
-	}
-
-	public boolean isFraction() {
-		return isFraction;
-	}
-
-	public void setFraction(boolean isFraction) {
-		this.isFraction = isFraction;
+	public void setNegative(boolean isNegative) {
+		this.isNegative = isNegative;
 	}
 
 	public boolean isRational() {
@@ -235,6 +235,30 @@ public class AflabsNumber {
 
 	public void setReal(boolean isReal) {
 		this.isReal = isReal;
+	}
+
+	public boolean isEven() {
+		return isEven;
+	}
+
+	public void setEven(boolean isEven) {
+		this.isEven = isEven;
+	}
+
+	public boolean isImplicationsDrawn() {
+		return implicationsDrawn;
+	}
+
+	public void setImplicationsDrawn(boolean implicationsDrawn) {
+		this.implicationsDrawn = implicationsDrawn;
+	}
+
+	public boolean isSpecialImplicationsDrawn() {
+		return specialImplicationsDrawn;
+	}
+
+	public void setSpecialImplicationsDrawn(boolean specialImplicationsDrawn) {
+		this.specialImplicationsDrawn = specialImplicationsDrawn;
 	}
 
 	public int getNoOfDigits() {
@@ -269,14 +293,6 @@ public class AflabsNumber {
 		this.decimalDigits = decimalDigits;
 	}
 
-	public boolean isEven() {
-		return isEven;
-	}
-
-	public void setEven(boolean isEven) {
-		this.isEven = isEven;
-	}
-
 	public boolean isPerfectSquare() {
 		return isPerfectSquare;
 	}
@@ -307,6 +323,39 @@ public class AflabsNumber {
 
 	public void setPerfectNumber(boolean isPerfectNumber) {
 		this.isPerfectNumber = isPerfectNumber;
-	}	
+	}
 
+	public boolean isDivisibleBy3() {
+		return isDivisibleBy3;
+	}
+
+	public void setDivisibleBy3(boolean isDivisibleBy3) {
+		this.isDivisibleBy3 = isDivisibleBy3;
+	}
+
+	public boolean isDivisibleBy5() {
+		return isDivisibleBy5;
+	}
+
+	public void setDivisibleBy5(boolean isDivisibleBy5) {
+		this.isDivisibleBy5 = isDivisibleBy5;
+	}
+
+	public boolean isDivisibleBy7() {
+		return isDivisibleBy7;
+	}
+
+	public void setDivisibleBy7(boolean isDivisibleBy7) {
+		this.isDivisibleBy7 = isDivisibleBy7;
+	}
+
+	public boolean isDivisibleBy10() {
+		return isDivisibleBy10;
+	}
+
+	public void setDivisibleBy10(boolean isDivisibleBy10) {
+		this.isDivisibleBy10 = isDivisibleBy10;
+	}
+	
+	
 }
