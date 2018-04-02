@@ -1,12 +1,8 @@
 package com.aflabs.hubot.entity;
 
-import com.aflabs.hubot.core.Entity;
+public class AnimateEntity extends SubjectEntity {
 
-public class ObjectEntity extends Entity {
-	
-	boolean living = false;
-
-	public ObjectEntity() {
+	public AnimateEntity() {
 		// TODO Auto-generated constructor stub
 	}
 

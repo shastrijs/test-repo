@@ -5,6 +5,8 @@ package com.aflabs.hubot.core;
  *
  */
 public class Entity {
+	
+	String name;
 
 	/**
 	 * 
